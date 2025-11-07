@@ -165,6 +165,10 @@ function simulateGame(matchup, teams, dayNumber) {
 }
 
 function calculateRuns(team, isHome) {
+    if (team.players.length === 0) {
+        return 0;
+    }
+
     const averageRating = team.players.reduce((sum, player) => sum + player.rating, 0) / team.players.length;
     const homeBonus = isHome ? HOME_FIELD_BONUS : 0;
     const expectedRuns = 3 + (averageRating + homeBonus - 70) / 6;
@@ -174,6 +178,10 @@ function calculateRuns(team, isHome) {
 }
 
 function updatePlayerStats(team, runsScored) {
+    if (team.players.length === 0) {
+        return;
+    }
+
     team.players.forEach((player) => {
         const atBats = randomBetween(3, 5);
         const hitProbability = player.rating / 130;
@@ -194,7 +202,7 @@ function updatePlayerStats(team, runsScored) {
     });
 
     let runsRemaining = runsScored;
-    while (runsRemaining > 0) {
+    while (runsRemaining > 0 && team.players.length > 0) {
         const player = team.players[Math.floor(Math.random() * team.players.length)];
         player.stats.runs += 1;
         runsRemaining -= 1;
