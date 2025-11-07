@@ -27,7 +27,8 @@ const elements = {
     resultsList: document.getElementById('results-list'),
     currentDay: document.getElementById('current-day'),
     totalDays: document.getElementById('total-days'),
-    simulateButton: document.getElementById('simulate-day')
+    simulateButton: document.getElementById('simulate-day'),
+    resetButton: document.getElementById('reset-season')
 };
 
 function init() {
@@ -52,6 +53,10 @@ function registerEvents() {
 
     elements.simulateButton.addEventListener('click', () => {
         simulateDay();
+    });
+
+    elements.resetButton.addEventListener('click', () => {
+        resetSeason();
     });
 }
 
@@ -243,6 +248,23 @@ function updateDayLabels() {
         elements.simulateButton.disabled = false;
         elements.simulateButton.textContent = `Simulate Day ${upcomingDay}`;
     }
+}
+
+function resetSeason() {
+    state.teams = createInitialTeams();
+    state.schedule = generateSchedule(state.teams);
+    state.currentDayIndex = 0;
+    state.results = [];
+
+    renderTeamSelect();
+    renderRoster();
+    renderSchedule();
+    renderStandings();
+    renderResults();
+    updateDayLabels();
+
+    elements.addPlayerForm.reset();
+    elements.playerRating.value = 60;
 }
 
 function getSelectedTeam() {

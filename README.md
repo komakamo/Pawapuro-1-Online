@@ -37,4 +37,4 @@ When extending the simulator:
 ## Compatibility and Limitations
 - The app targets modern evergreen browsers (Chrome, Firefox, Edge, and Safari) that support ES modules and CSS grid. Internet Explorer is not supported.
 - Opening the `index.html` file directly via `file://` URLs may fail to load the JavaScript modules in certain browsers; running a local web server avoids this issue.
-- There is no persistence layer, audio, or mobile-specific optimization yet. Player additions and simulation results reset on reload, and small screens rely on the responsive grid rather than bespoke layouts.
+- There is no persistence layer, audio, or mobile-specific optimization yet. Player additions and simulation results reset on reload, though you can restart a session at any time with the in-app **Reset Season** button, and small screens rely on the responsive grid rather than bespoke layouts.
