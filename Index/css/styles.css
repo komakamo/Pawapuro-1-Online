@@ -71,6 +71,12 @@ body {
     gap: 0.5rem;
 }
 
+.schedule-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
 #roster-list,
 #results-list {
     list-style: none;
