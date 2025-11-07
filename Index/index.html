@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pawapuro League Simulator</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+    <header class="app-header">
+        <h1>Pawapuro League Simulator</h1>
+        <p>Manage your club, set the schedule, and guide your team to a championship.</p>
+    </header>
+
+    <main class="layout">
+        <section class="card" id="team-management">
+            <h2>Team Management</h2>
+            <div class="team-selector">
+                <label for="team-select">Select Team</label>
+                <select id="team-select"></select>
+            </div>
+            <div class="roster">
+                <h3>Roster</h3>
+                <ul id="roster-list"></ul>
+            </div>
+            <form id="add-player-form" class="form-grid">
+                <h3>Add Player</h3>
+                <label for="player-name">Name</label>
+                <input type="text" id="player-name" required />
+                <label for="player-position">Position</label>
+                <input type="text" id="player-position" required />
+                <label for="player-rating">Rating (1-100)</label>
+                <input type="number" id="player-rating" min="1" max="100" value="60" required />
+                <button type="submit" class="primary">Add Player</button>
+            </form>
+        </section>
+
+        <section class="card" id="schedule">
+            <h2>Season Schedule</h2>
+            <div class="schedule-header">
+                <p>Day <span id="current-day">1</span> of <span id="total-days">0</span></p>
+                <button id="simulate-day" class="primary">Simulate Next Day</button>
+            </div>
+            <table class="table" aria-describedby="schedule">
+                <thead>
+                    <tr>
+                        <th scope="col">Day</th>
+                        <th scope="col">Home</th>
+                        <th scope="col">Away</th>
+                    </tr>
+                </thead>
+                <tbody id="schedule-body"></tbody>
+            </table>
+            <div class="results">
+                <h3>Latest Results</h3>
+                <ul id="results-list"></ul>
+            </div>
+        </section>
+
+        <section class="card" id="standings">
+            <h2>League Standings</h2>
+            <table class="table" aria-describedby="standings">
+                <thead>
+                    <tr>
+                        <th scope="col">Team</th>
+                        <th scope="col">W</th>
+                        <th scope="col">L</th>
+                        <th scope="col">Pct</th>
+                        <th scope="col">Runs</th>
+                    </tr>
+                </thead>
+                <tbody id="standings-body"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>Built with vanilla HTML, CSS, and JavaScript.</p>
+    </footer>
+
+    <script type="module" src="./js/game.js"></script>
+</body>
+</html>
