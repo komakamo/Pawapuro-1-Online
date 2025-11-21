@@ -1,4 +1,5 @@
 const HOME_FIELD_BONUS = 4;
+const TARGET_SCHEDULE_GAMES = 144;
 
 const statTemplate = () => ({ games: 0, atBats: 0, hits: 0, runs: 0, homeRuns: 0 });
 
@@ -69,11 +70,28 @@ export function generateSchedule(teams) {
     const schedule = [];
     let day = 1;
 
-    for (let round = 0; round < 2; round += 1) {
+    const pairingsPerRound = (teams.length * (teams.length - 1)) / 2;
+
+    if (pairingsPerRound === 0) {
+        return schedule;
+    }
+
+    const totalFullRounds = Math.floor(TARGET_SCHEDULE_GAMES / pairingsPerRound);
+    const remainderGames = TARGET_SCHEDULE_GAMES % pairingsPerRound;
+
+    const scheduleRound = (roundIndex, gamesToSchedule) => {
+        let gamesScheduled = 0;
+
         for (let i = 0; i < teams.length; i += 1) {
             for (let j = i + 1; j < teams.length; j += 1) {
-                const homeTeam = round % 2 === 0 ? teams[i] : teams[j];
-                const awayTeam = round % 2 === 0 ? teams[j] : teams[i];
+                if (gamesScheduled >= gamesToSchedule) {
+                    return;
+                }
+
+                const isEvenRound = roundIndex % 2 === 0;
+                const homeTeam = isEvenRound ? teams[i] : teams[j];
+                const awayTeam = isEvenRound ? teams[j] : teams[i];
+
                 schedule.push({
                     day,
                     games: [
@@ -84,8 +102,17 @@ export function generateSchedule(teams) {
                     ]
                 });
                 day += 1;
+                gamesScheduled += 1;
             }
         }
+    };
+
+    for (let round = 0; round < totalFullRounds; round += 1) {
+        scheduleRound(round, pairingsPerRound);
+    }
+
+    if (remainderGames > 0) {
+        scheduleRound(totalFullRounds, remainderGames);
     }
 
     return schedule;
